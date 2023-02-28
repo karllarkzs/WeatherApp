@@ -18,7 +18,7 @@ which will create a production-ready optimized build in the build folder. This b
 
 For more information, refer to the Create React App documentation and the React documentation. There are also sections on code splitting, analyzing bundle size, and making a progressive web app. If you encounter any issues, refer to the troubleshooting section in the Create React App documentation.
 
-Please <h1>note</h1> that in order to use the API for this project, you will need to add a .env file to the root directory of the project, and include your API key in that file. You can obtain an API key by following the instructions provided by the API provider.
+<h1>Please note</h1> that in order to use the API for this project, you will need to add a .env file to the root directory of the project, and include your API key in that file. You can obtain an API key by following the instructions provided by the API provider.
 
 In the .env file, create a variable named REACT_APP_API_KEY and set its value to your API key, like this:
 
