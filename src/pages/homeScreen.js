@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 
 function HomeScreen() {
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const [city, setCity] = useState();
   const isMobile = useMediaQuery({ maxWidth: 640 });
 
@@ -25,7 +25,7 @@ function HomeScreen() {
   return (
     <>
       <Header />
-      <div className="flex items-start justify-center mx-auto max-w-screen-md h-screen">
+      <div className="flex items-start justify-center mx-auto max-w-screen-md full-height">
         <div>
           <div className="py-8">
             {!isMobile && (
@@ -53,15 +53,15 @@ function HomeScreen() {
                   type="text"
                   id="large-input"
                   placeholder="City"
-                  className="block w-full pl-8 pr-2 py-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="block w-full pl-8 pr-2 py-2 text-gray-900 border border-black rounded-full bg-white sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
             </div>
-            <div className="mb-6">
+            <div className="mb-6 pt-5">
               <button
                 onClick={onSearch}
                 type="submit"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-black bg-white border border-black hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm w-full sm:w-auto px-5 py-2.5 text-center"
               >
                 Display Weather
               </button>

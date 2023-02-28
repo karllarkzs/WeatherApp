@@ -22,7 +22,7 @@ function LandingScreen() {
           </p>
           <button
             onClick={loginWithRedirect}
-            class="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-white font-medium rounded-lg py-2 px-4"
+            class="text-black bg-white border border-black hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center"
           >
             Login
           </button>

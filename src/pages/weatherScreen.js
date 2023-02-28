@@ -8,11 +8,15 @@ function WeatherScreen() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const city = searchParams.get('city');
-  const { isAuthenticated, logout } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
   const [data, setData] = useState({});
 
   if (!isAuthenticated) {
     navigate('/');
+  }
+
+  function isBackButton() {
+    navigate(-1);
   }
 
   const fetchingWeather = () => {
@@ -28,9 +32,6 @@ function WeatherScreen() {
       .catch(function (error) {
         // handle error
         console.log(error);
-      })
-      .finally(function () {
-        // always executed
       });
   };
 
@@ -41,58 +42,79 @@ function WeatherScreen() {
   return (
     <>
       <Header />
-      <div className="flex justify-center items-start h-screen">
-        <div className="container mx-auto px-5">
-          <h1 className="text-center my-4">Weather Screen</h1>
-          {data.list && data.list.length > 0 && (
+      <div className="flex justify-center items-start full-height">
+        <div className="container mx-auto px-5 text-left">
+          {isLoading && <p>Loading...</p>}
+          {!isLoading && data && data.list && data.list.length > 0 && (
             <div className="container mx-auto mt-8">
-              <table className="table-auto mx-auto">
+              <table className="table-auto mx-auto ">
                 <thead>
-                  <tr>
-                    <th className="border px-4 py-2">Date</th>
-                    <th className="border px-4 py-2">Temperature</th>
-                    <th className="border px-4 py-2 hidden sm:table-cell">
+                  <tr className="bg-zinc-200">
+                    <th className="border-2 border-black px-4 py-2 border-b-0">
+                      Date (mm/dd/yyyy)
+                    </th>
+                    <th className="border-2 border-black px-4 py-2 border-b-0">
+                      Temp(F)
+                    </th>
+                    <th className="border-2 border-black px-4 py-2 hidden sm:table-cell border-b-0">
                       Description
                     </th>
-                    <th className="border px-4 py-2 hidden sm:table-cell">
+                    <th className="border-2 border-black px-4 py-2 hidden sm:table-cell border-b-0">
                       Main
                     </th>
-                    <th className="border px-4 py-2 hidden sm:table-cell">
+                    <th className="border-2 border-black px-4 py-2 hidden sm:table-cell border-b-0">
                       Pressure
                     </th>
-                    <th className="border px-4 py-2 hidden sm:table-cell">
+                    <th className="border-2 border-black px-4 py-2 hidden sm:table-cell border-b-0">
                       Humidity
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td className="border px-4 py-2">{data.list[0].dt_txt}</td>
-                    <td className="border px-4 py-2">
-                      {data.list[0].main.temp}
-                    </td>
-                    <td className="border px-4 py-2 hidden sm:table-cell">
-                      {data.list[0].weather[0].description}
-                    </td>
-                    <td className="border px-4 py-2 hidden sm:table-cell">
-                      {data.list[0].weather[0].main}
-                    </td>
-                    <td className="border px-4 py-2 hidden sm:table-cell">
-                      {data.list[0].main.pressure}
-                    </td>
-                    <td className="border px-4 py-2 hidden sm:table-cell">
-                      {data.list[0].main.humidity}
-                    </td>
-                  </tr>
-                </tbody>
+                {data.list.length > 0 ? (
+                  <tbody>
+                    <tr className="bg-zinc-100">
+                      <td className="border-2 border-black px-4 py-2 border-t-0">
+                        {new Date(data.list[0].dt_txt)
+                          .toLocaleString('en-US', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            year: 'numeric',
+                          })
+                          .replace(',', '')
+                          .replace(/(\d) /, '0$1 ')}
+                      </td>
+                      <td className="border-2 border-black px-4 py-2 border-t-0">
+                        {data.list[0].main.temp.toFixed()}
+                      </td>
+                      <td className="border-2 border-black px-4 py-2 hidden sm:table-cell border-t-0">
+                        {data.list[0].weather[0].description}
+                      </td>
+                      <td className="border-2 border-black px-4 py-2 hidden sm:table-cell border-t-0">
+                        {data.list[0].weather[0].main}
+                      </td>
+                      <td className="border-2 border-black px-4 py-2 hidden sm:table-cell border-t-0">
+                        {data.list[0].main.pressure}
+                      </td>
+                      <td className="border-2 border-black px-4 py-2 hidden sm:table-cell border-t-0">
+                        {data.list[0].main.humidity}
+                      </td>
+                    </tr>
+                  </tbody>
+                ) : (
+                  <tbody>
+                    <tr>
+                      <td colSpan="6" className="text-center">
+                        No data
+                      </td>
+                    </tr>
+                  </tbody>
+                )}
               </table>
               <p className="text-center my-4">City: {data.city.name}</p>
               <div className="flex justify-end">
                 <button
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-50 sm:w-50 px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  onClick={() => {
-                    window.history.back();
-                  }}
+                  className="text-black bg-white border border-black hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm  px-5 py-2.5 text-center"
+                  onClick={isBackButton}
                 >
                   Back
                 </button>

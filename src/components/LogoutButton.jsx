@@ -7,7 +7,7 @@ function LogoutButton() {
   return (
     isAuthenticated && (
       <button
-        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-white hover:bg-gray-100 text-black font-bold py-2 px-4 border border-black shadow-md"
         onClick={() => {
           logout({
             logoutParams: {

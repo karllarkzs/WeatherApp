@@ -12,7 +12,11 @@ const Profile = () => {
     isAuthenticated && (
       <div className="flex flex-col items-center">
         <h2 className="py-5">{user.name}</h2>
-        <a href={`https://github.com/${user.nickname}/`} target="_blank">
+        <a
+          href={`https://github.com/${user.nickname}/`}
+          rel="noreferrer"
+          target="_blank"
+        >
           https://github.com/{user.nickname}
         </a>
       </div>
